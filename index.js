@@ -1,3 +1,5 @@
+module.exports = Phrase;
+
 // Adds `reverse`to all strings
 String.prototype.reverse = function() {
 	return Array.from(this).reverse().join("");
@@ -21,13 +23,20 @@ function Phrase(content) {
 	}
 
 	this.processedContent = function processedContent() {
-		return this.processor(this.content);
+		return this.letters().toLowerCase();
 	}
 
 	// Returns true for a palindrome, false otherwise.
 	this.palindrome = function palindrome() {
 		let processedContent = this.content.toLowerCase();
-		return this.processedContent() === reverse(this.processedContent());
+		return this.processedContent() === this.processedContent().reverse();
+	}
+
+	// Returns letters in the content.
+	// For example:
+	//	new Prhase("Hello, world!").letters() === "Helloworld"
+	this.letters = function letters() {
+		return Array.from(this.content).filter(c => c.match(/[a-z]/i)).join("");
 	}
 
 	// Makes the phrase LOUDER.
